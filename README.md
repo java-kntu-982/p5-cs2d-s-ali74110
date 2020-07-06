@@ -12,7 +12,6 @@
 
 |First Name|Last Name|Student ID|
 |---|---|---|
-|first|person|.......|
-|second|person|.......|
+|Seyed Ali|Toliat|9820713|
 
 

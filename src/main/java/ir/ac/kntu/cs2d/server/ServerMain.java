@@ -6,5 +6,6 @@ public class ServerMain {
     }
 
     private ServerMain() {
+
     }
 }

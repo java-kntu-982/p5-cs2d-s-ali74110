@@ -6,13 +6,19 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class Presenter extends Application implements Observer<Game> {
+
+    private Game game ;
+
+
     @Override
-    public void init() throws Exception {
+    public void init() {
+//        initializeMap();
+        game = new Game();
 
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
     }
 

@@ -16,21 +16,24 @@ public class Soldier implements Movable{
     private Colt pistol;
     private Weapon inHandWeapon;
     private Group group;
+    private int soldiersKilledNum;
+    private int health;
 
     public Soldier(String name , Group group,double x, double y) {
         this.x = x;
         this.y = y;
-        cash = new Cash();
+        this.health = 100;
+        this.cash = new Cash();
         this.group = group;
         this.name = name;
         if (group == Group.COUNTER_TERRORIST){
-            pistol = new USP();
-            mainGun = new Gun();
+            this.pistol = new USP();
+            this.mainGun = new Gun();
         }else if (group == Group.TERRORIST){
-            pistol = new Glock();
-            mainGun = new Gun();
+            this.pistol = new Glock();
+            this.mainGun = new Gun();
         }
-        inHandWeapon = pistol;
+        this.inHandWeapon = this.pistol;
     }
 
     public double getX() {
@@ -51,22 +54,22 @@ public class Soldier implements Movable{
 
     @Override
     public void goUp() {
-        y--;
+        y-=1.5;
     }
 
     @Override
     public void goDown() {
-        y++;
+        y+=1.5;
     }
 
     @Override
     public void goRight() {
-        x++;
+        x+=1.5;
     }
 
     @Override
     public void goLeft() {
-        x--;
+        x-=1.5;
     }
 
     public String getName() {
@@ -107,6 +110,22 @@ public class Soldier implements Movable{
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public void setSoldiersKilledNum(int soldiersKilledNum) {
+        this.soldiersKilledNum = soldiersKilledNum;
+    }
+
+    public int getSoldiersKilledNum() {
+        return soldiersKilledNum;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public void setInHandWeapon(int inHandWeapon) {

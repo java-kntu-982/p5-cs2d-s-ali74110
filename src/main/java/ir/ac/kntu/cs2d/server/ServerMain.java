@@ -9,8 +9,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.ParallelCamera;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -43,6 +45,7 @@ public class ServerMain extends Application implements Observer<Game> {
     private HBox dataBar;
     private Text cash;
     private Text gunInHand;
+    private Alert inGameSoldiers;
 
     public static void controlData() {
         int i = 0 ;
@@ -91,11 +94,12 @@ public class ServerMain extends Application implements Observer<Game> {
         aim.setStroke(Color.RED);
         aim.setStrokeWidth(2);
         dataBar = new HBox();
-        dataBar.setSpacing(20);
+        dataBar.setSpacing(50);
         dataBar.setAlignment(Pos.CENTER);
         dataBar.setPrefSize(600,100);
         dataBar.setLayoutX(0);
         dataBar.setLayoutY(0);
+        dataBar.setFillHeight(true);
 
         cash = new Text("$");
         cash.setTextAlignment(TextAlignment.CENTER);
@@ -109,9 +113,13 @@ public class ServerMain extends Application implements Observer<Game> {
         Thread controlData = new Thread(ServerMain::controlData);
         controlData.start();
 
+        inGameSoldiers = new Alert(Alert.AlertType.INFORMATION);
+        inGameSoldiers.setHeaderText("soldiers");
+
         root = new Group();
         scene = new Scene(root, 600, 700);
         stage.setScene(scene);
+        stage.setResizable(false);
 
         scene.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
             switch (e.getCode()) {
@@ -133,12 +141,15 @@ public class ServerMain extends Application implements Observer<Game> {
                 case DIGIT2:
                     game.getSoldiers().get(0).setInHandWeapon(2);
                     break;
+                case TAB:
+                    inGameSoldiers.show();
+                    break;
                 default:
                     System.err.println("Wrong Key!");
             }
             scene.setOnMouseMoved((MouseEvent)->{
-                game.getAim().setX1(MouseEvent.getX());
-                game.getAim().setY1(MouseEvent.getY());
+                game.getAim().setX(MouseEvent.getX());
+                game.getAim().setY(MouseEvent.getY());
             });
             e.consume();
         });
@@ -171,6 +182,7 @@ public class ServerMain extends Application implements Observer<Game> {
             }else {
                 gunInHand.setText(game.getSoldiers().get(0).getPistol().getName());
             }
+            inGameSoldiers.setContentText(game.getInGameSoldiers());
         });
     }
 }

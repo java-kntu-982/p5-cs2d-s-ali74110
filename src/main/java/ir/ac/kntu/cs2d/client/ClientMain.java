@@ -1,11 +1,15 @@
 package ir.ac.kntu.cs2d.client;
 
+import ir.ac.kntu.cs2d.logic.play.logic.Soldier;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class ClientMain {
+
+    private Soldier clientSoldier;
 
     static Socket socket = null;
 

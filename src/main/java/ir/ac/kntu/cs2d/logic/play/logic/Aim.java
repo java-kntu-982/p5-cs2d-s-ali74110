@@ -16,7 +16,7 @@ public class Aim {
         return x;
     }
 
-    public void setX1(double x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -24,7 +24,7 @@ public class Aim {
         return y;
     }
 
-    public void setY1(double y) {
+    public void setY(double y) {
         this.y = y;
     }
 

@@ -15,6 +15,7 @@ public class Game extends TimerTask implements Observable<Game> {
     private Aim aim;
     private SoldierAim soldierAim;
     private Camera camera;
+    private String inGameSoldiers = "";
 
     public Game(){
         soldiers = new ArrayList<>();
@@ -42,6 +43,35 @@ public class Game extends TimerTask implements Observable<Game> {
 
     @Override
     public void run() {
+        if (soldiers.get(0).getX()<=8){
+            soldiers.get(0).setX(9);
+        }else if (soldiers.get(0).getX()>=592){
+            soldiers.get(0).setX(591);
+        }
+        if (soldiers.get(0).getY()<=108){
+            soldiers.get(0).setY(109);
+        }else if (soldiers.get(0).getY()>=692){
+            soldiers.get(0).setY(691);
+        }
+        inGameSoldiers = "" ;
+        for (Soldier soldier : soldiers){
+            if (soldier.getHealth()<=0){
+                inGameSoldiers += soldier.getName()+"(dead)\n";
+            }else {
+                inGameSoldiers += soldier.getName()+'('+soldier.getHealth()+")\n";
+            }
+        }
+        if (aim.getX()<=12){
+            aim.setX(13);
+        }else if (aim.getX()>=588){
+            aim.setX(587);
+        }
+        if (aim.getY()<=112){
+            aim.setY(113);
+        }else if (aim.getY()>=688){
+            aim.setY(687);
+        }
+
         updateAllObservers();
     }
 
@@ -75,5 +105,9 @@ public class Game extends TimerTask implements Observable<Game> {
 
     public void setCamera(Camera camera) {
         this.camera = camera;
+    }
+
+    public String getInGameSoldiers() {
+        return inGameSoldiers;
     }
 }

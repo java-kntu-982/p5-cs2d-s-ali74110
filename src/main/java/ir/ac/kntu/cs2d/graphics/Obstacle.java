@@ -1,4 +1,4 @@
-package ir.ac.kntu.cs2d.logic;
+package ir.ac.kntu.cs2d.graphics;
 
 import java.io.Serializable;
 

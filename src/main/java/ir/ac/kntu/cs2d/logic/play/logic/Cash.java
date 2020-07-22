@@ -1,4 +1,4 @@
-package ir.ac.kntu.cs2d.logic;
+package ir.ac.kntu.cs2d.logic.play.logic;
 
 public class Cash {
     private int amount = 800;

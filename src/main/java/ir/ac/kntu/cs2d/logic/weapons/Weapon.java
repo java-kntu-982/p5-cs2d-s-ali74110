@@ -1,8 +1,5 @@
 package ir.ac.kntu.cs2d.logic.weapons;
 
-import ir.ac.kntu.cs2d.logic.Firable;
-import ir.ac.kntu.cs2d.logic.Reloadable;
-
 public abstract class Weapon implements Firable, Reloadable {
     private String name;
     private int magazineCapacity;

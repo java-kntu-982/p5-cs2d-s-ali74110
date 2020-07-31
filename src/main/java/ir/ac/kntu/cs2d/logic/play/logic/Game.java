@@ -4,11 +4,13 @@ import ir.ac.kntu.cs2d.graphics.Observer;
 import ir.ac.kntu.cs2d.logic.Observable;
 import ir.ac.kntu.cs2d.logic.weapons.Group;
 
+import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
-public class Game extends TimerTask implements Observable<Game> {
+public class Game extends TimerTask implements Observable<Game> , Serializable {
 
     private List<Observer<Game>> observers;
     private List<Soldier> soldiers;
@@ -16,15 +18,15 @@ public class Game extends TimerTask implements Observable<Game> {
     private SoldierAim soldierAim;
     private Camera camera;
     private String inGameSoldiers = "";
+    private Map map;
 
-    public Game(){
+    public Game() throws FileNotFoundException {
         soldiers = new ArrayList<>();
         observers = new ArrayList<>();
-        Soldier soldier = new Soldier("ali", Group.TERRORIST,0,0);
-        soldiers.add(soldier);
-        aim = new Aim(0,0,5);
+        aim = new Aim(400,400,5);
         soldierAim = new SoldierAim(0,0,1,1);
         camera = new Camera();
+        map = new Map();
     }
 
     public void addSoldier(Soldier soldier) {
@@ -43,33 +45,60 @@ public class Game extends TimerTask implements Observable<Game> {
 
     @Override
     public void run() {
-        if (soldiers.get(0).getX()<=8){
-            soldiers.get(0).setX(9);
-        }else if (soldiers.get(0).getX()>=592){
-            soldiers.get(0).setX(591);
-        }
-        if (soldiers.get(0).getY()<=108){
-            soldiers.get(0).setY(109);
-        }else if (soldiers.get(0).getY()>=692){
-            soldiers.get(0).setY(691);
-        }
-        inGameSoldiers = "" ;
         for (Soldier soldier : soldiers){
+
+            if (soldier.getX()<=8){
+                soldier.setX(9);
+            }else if (soldier.getX()>=792){
+                soldier.setX(791);
+            }
+            if (soldier.getY()<=8){
+                soldier.setY(9);
+            }else if (soldier.getY()>=792){
+                soldier.setY(791);
+            }
+
+            inGameSoldiers = "" ;
             if (soldier.getHealth()<=0){
                 inGameSoldiers += soldier.getName()+"(dead)\n";
             }else {
                 inGameSoldiers += soldier.getName()+'('+soldier.getHealth()+")\n";
             }
-        }
-        if (aim.getX()<=12){
-            aim.setX(13);
-        }else if (aim.getX()>=588){
-            aim.setX(587);
-        }
-        if (aim.getY()<=112){
-            aim.setY(113);
-        }else if (aim.getY()>=688){
-            aim.setY(687);
+
+            if (aim.getX()<=12){
+                aim.setX(13);
+            }else if (aim.getX()>=788){
+                aim.setX(787);
+            }
+            if (aim.getY()<=12){
+                aim.setY(13);
+            }else if (aim.getY()>=788){
+                aim.setY(787);
+            }
+            for (Obstacle obstacle : map.getObstacles()){
+                if (soldier.getX()+8>=obstacle.getX() &&
+                        soldier.getY()+8>=obstacle.getY() &&
+                        soldier.getX()-8<=obstacle.getX()+obstacle.getWidth() &&
+                        soldier.getY()-8<=obstacle.getY()+obstacle.getHeight() ){
+//                    if (soldier.getY()>obstacle.getY())
+                    if (soldier.getY()>=obstacle.getY() && soldier.getY()-8<=obstacle.getY()+obstacle.getHeight()
+                            && soldier.getX()-8<=obstacle.getX()+5){
+                        soldier.setX(soldier.getX()-2);
+                    } else if (soldier.getY()+8>=obstacle.getY() && soldier.getY()-8<=obstacle.getY()+obstacle.getHeight()
+                            && soldier.getX()+8>=obstacle.getX()-5){
+                        soldier.setX(soldier.getX()+2);
+                    }
+                     if ( soldier.getX()+8>=obstacle.getX() && soldier.getX()-8<=obstacle.getX()+obstacle.getWidth()
+                            && soldier.getY()-8<=obstacle.getY()){
+                        soldier.setY(soldier.getY()-2);
+                        soldier.setX(soldier.getX()-2);
+                    }else if ( soldier.getX()+8>=obstacle.getX() && soldier.getX()-8<=obstacle.getX()+obstacle.getWidth()
+                            && soldier.getY()+8>=obstacle.getY()){
+                         soldier.setY(soldier.getY()+2);
+                         soldier.setX(soldier.getX()-2);
+                     }
+                }
+            }
         }
 
         updateAllObservers();

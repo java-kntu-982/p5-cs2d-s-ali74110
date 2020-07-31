@@ -1,6 +1,8 @@
 package ir.ac.kntu.cs2d.logic.play.logic;
 
-public class Camera {
+import java.io.Serializable;
+
+public class Camera implements Serializable {
     private double translateX ;
     private double translateY ;
 

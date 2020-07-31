@@ -3,7 +3,9 @@ package ir.ac.kntu.cs2d.logic.weapons.guns;
 import ir.ac.kntu.cs2d.logic.weapons.Group;
 import ir.ac.kntu.cs2d.logic.weapons.Weapon;
 
-public class Gun extends Weapon {
+import java.io.Serializable;
+
+public class Gun extends Weapon implements Serializable {
 
     private Group group;
 

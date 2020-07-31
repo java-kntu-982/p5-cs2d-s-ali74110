@@ -1,6 +1,8 @@
 package ir.ac.kntu.cs2d.logic.play.logic;
 
-public class Bullet {
+import java.io.Serializable;
+
+public class Bullet implements Serializable {
     private double x ;
     private double y ;
     private double radius = 2 ;

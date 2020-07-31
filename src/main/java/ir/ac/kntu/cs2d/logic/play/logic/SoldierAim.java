@@ -1,6 +1,10 @@
 package ir.ac.kntu.cs2d.logic.play.logic;
 
-public class SoldierAim {
+import javafx.scene.paint.Color;
+
+import java.io.Serializable;
+
+public class SoldierAim implements Serializable {
     private double x1 ;
     private double y1 ;
     private double x2 ;
@@ -45,4 +49,5 @@ public class SoldierAim {
     public void setY2(double y2) {
         this.y2 = y2;
     }
+
 }

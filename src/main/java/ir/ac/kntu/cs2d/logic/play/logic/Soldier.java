@@ -7,7 +7,9 @@ import ir.ac.kntu.cs2d.logic.weapons.colts.Glock;
 import ir.ac.kntu.cs2d.logic.weapons.colts.USP;
 import ir.ac.kntu.cs2d.logic.weapons.guns.Gun;
 
-public class Soldier implements Movable{
+import java.io.Serializable;
+
+public class Soldier implements Movable, Serializable {
     private double x ;
     private double y ;
     private String name;
@@ -19,9 +21,7 @@ public class Soldier implements Movable{
     private int soldiersKilledNum;
     private int health;
 
-    public Soldier(String name , Group group,double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Soldier(String name , Group group) {
         this.health = 100;
         this.cash = new Cash();
         this.group = group;
@@ -29,9 +29,13 @@ public class Soldier implements Movable{
         if (group == Group.COUNTER_TERRORIST){
             this.pistol = new USP();
             this.mainGun = new Gun();
+            this.x = 170;
+            this.y = 200;
         }else if (group == Group.TERRORIST){
             this.pistol = new Glock();
             this.mainGun = new Gun();
+            this.x = 750;
+            this.y = 300;
         }
         this.inHandWeapon = this.pistol;
     }

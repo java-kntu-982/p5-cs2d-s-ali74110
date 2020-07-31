@@ -1,6 +1,8 @@
 package ir.ac.kntu.cs2d.logic.play.logic;
 
-public class Aim {
+import java.io.Serializable;
+
+public class Aim implements Serializable {
     private double x ;
     private double y ;
     private double radius;

@@ -1,6 +1,8 @@
 package ir.ac.kntu.cs2d.logic.play.logic;
 
-public class Cash {
+import java.io.Serializable;
+
+public class Cash implements Serializable {
     private int amount = 800;
 
     public int getAmount() {
